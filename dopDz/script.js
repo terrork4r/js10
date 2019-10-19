@@ -4,9 +4,12 @@
 //    ·  Вывести на экран первые 2 цифры полученного числа
 
 let num = 266219;
+let sum = num.toString().split("");
+console.log(sum);
 
-num = 2*6*6*2*1*9;
-console.log(num);
-num = num**3;
-console.log(num);
-alert(String(num).slice(0, 2));
+const reducer = (accumulator, currentValue) => accumulator * currentValue;
+let result = sum.reduce(reducer);
+console.log(result);
+result **= 3;
+console.log(result);
+alert(String(result).slice(0, 2));

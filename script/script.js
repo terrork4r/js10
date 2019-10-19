@@ -20,3 +20,4 @@ console.log('Цель заработать', mission , 'рублей');
 console.log (addExpenses.toLowerCase().split(', '));
 
 console.log("Доход за день:", budgetDay);
+console.log("Остаток:", money % 30);
