@@ -1,23 +1,48 @@
 'use strict';
-let money = 50000, // Доход за месяц
+
+
+let money = +prompt('Ваш месячный доход?', 40000),
     income = 'фриланс', // строка с дополнительными доходом 
-    addExpenses = 'Квартплата, интернет, фитнес', //строка с перечислением дополнительных расходов через запятую
-    deposit = true,
+    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую',
+     'бензин, активный отдых, фитнес'),
+    deposit = confirm('Есть ли у вас депозит в банке?'),
     mission = 1000000, //Какую сумму хотите накопить
     period = 12;
 
-let budgetDay = money / 30;   //дневной бюджет
-    
-console.log (typeof money);
-console.log (typeof income);
-console.log (typeof deposit);
+let expenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата'),
+    amountOfExpenses1 = +prompt('Во сколько это обойдется?', 5000),
+    expenses2 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Оплата интернета'),
+    amountOfExpenses2 = +prompt('Во сколько это обойдется?', 1000);
 
-console.log (income.length);
+let budgetMonth = money - (amountOfExpenses1 + amountOfExpenses2) , //месячный доход с учетом обязательных расходов
+    budgetDay = budgetMonth / 30;   //дневной бюджет с учетом обязательных расходов
 
-console.log('Период', period ,'месяцев');
-console.log('Цель заработать', mission , 'рублей');
 
-console.log (addExpenses.toLowerCase().split(', '));
+console.log ('тип данных money:', typeof money);
+console.log ('тип данных income:', typeof income);
+console.log ('тип данных deposit:', typeof deposit);
 
-console.log("Доход за день:", budgetDay);
-console.log("Остаток:", money % 30);
+console.log ('возможные расходы', addExpenses.toLowerCase().split(', '));
+
+console.log('Месячный доход с учетом расходов:', budgetMonth);
+console.log('Дневной бюджет:', Math.floor(budgetDay));
+
+console.log('Цель будет достигнута через', Math.ceil(mission / budgetMonth), 'месяцев');
+
+
+// Написать конструкцию условий		
+// Если budgetDay больше 800, то “Высокий уровень дохода”
+// Если budgetDay больше 300 и меньше 800, то сообщение “Средний уровень дохода”
+// Если budgetDay больше 0 и меньше 300 то в консоль вывести сообщение “Низкий уровень дохода”
+// Если отрицательное значение то вывести “Что то пошло не так”
+// учесть варианты 0, 300 и 800
+
+if(budgetDay >= 800) {
+  console.log('Высокий уровень дохода');
+}else if(budgetDay >= 300 && budgetDay < 800){
+  console.log('Средний уровень дохода');
+}else if(budgetDay < 300 && budgetDay > 0){
+  console.log('Низкий уровень дохода');
+}else{
+  console.log('Что то пошло не так!!!');
+}
