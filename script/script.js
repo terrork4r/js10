@@ -8,7 +8,7 @@ let money = +prompt('Ваш месячный доход?', 40000),
     deposit = confirm('Есть ли у вас депозит в банке?'),
     mission = 1000000, //Какую сумму хотите накопить
     period = 12;
-
+    
 let expenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата'),
     amountOfExpenses1 = +prompt('Во сколько это обойдется?', 5000),
     expenses2 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Оплата интернета'),
@@ -18,31 +18,51 @@ let budgetMonth = money - (amountOfExpenses1 + amountOfExpenses2) , //месяч
     budgetDay = budgetMonth / 30;   //дневной бюджет с учетом обязательных расходов
 
 
-console.log ('тип данных money:', typeof money);
-console.log ('тип данных income:', typeof income);
-console.log ('тип данных deposit:', typeof deposit);
+              //ФУНКЦИИ
+const showTypeOf = function(data){        //Функция выводит в консоль тип данных для проверки
+  console.log('тип данных ', data , ':', typeof data);
+}; 
 
-console.log ('возможные расходы', addExpenses.toLowerCase().split(', '));
+const getExpensesMonth = function(){   //Функция возвращает сумму всех расходов за месяц
+  return amountOfExpenses1 + amountOfExpenses2;
+};
 
-console.log('Месячный доход с учетом расходов:', budgetMonth);
-console.log('Дневной бюджет:', Math.floor(budgetDay));
+const getAccumulatedMonth = function(){     //Функция возвращает Накопления за месяц (Доходы минус расходы)
+  return money - getExpensesMonth();
+};
 
-console.log('Цель будет достигнута через', Math.ceil(mission / budgetMonth), 'месяцев');
+const getTargetMonth = function(){      //Функция подсчитывает за какой период будет достигнута цель
+    return mission / accumulatedMonth;
+};
+
+const getStatusIncome = function(){
+  if(budgetDay >= 800) {
+    return ('Высокий уровень дохода');
+  }else if(budgetDay >= 300 && budgetDay < 800){
+    return ('Средний уровень дохода');
+  }else if(budgetDay < 300 && budgetDay > 0){
+    return ('Низкий уровень дохода');
+  }else{
+    return ('Что то пошло не так!!!');
+  }
+};
+
+            //ВЫЗОВ ФУНКЦИЙ
+showTypeOf(money);  
+showTypeOf(income);
+showTypeOf(deposit); 
+getExpensesMonth();
+let accumulatedMonth = getAccumulatedMonth(); //Накопления за месяц
+getTargetMonth();
 
 
-// Написать конструкцию условий		
-// Если budgetDay больше 800, то “Высокий уровень дохода”
-// Если budgetDay больше 300 и меньше 800, то сообщение “Средний уровень дохода”
-// Если budgetDay больше 0 и меньше 300 то в консоль вывести сообщение “Низкий уровень дохода”
-// Если отрицательное значение то вывести “Что то пошло не так”
-// учесть варианты 0, 300 и 800
+console.log('Накопления за месяц:', accumulatedMonth);
+console.log('Колличество месяцев для достижения цели:', Math.floor(getTargetMonth()));
+console.log(getStatusIncome());
 
-if(budgetDay >= 800) {
-  console.log('Высокий уровень дохода');
-}else if(budgetDay >= 300 && budgetDay < 800){
-  console.log('Средний уровень дохода');
-}else if(budgetDay < 300 && budgetDay > 0){
-  console.log('Низкий уровень дохода');
-}else{
-  console.log('Что то пошло не так!!!');
-}
+
+
+
+
+
+
