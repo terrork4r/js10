@@ -37,13 +37,13 @@ function leapYear()
   let lastYear = +prompt('Введите конечный год');
   if(firstYear < lastYear){
   for(let i = firstYear, b = lastYear; i <= b; i++){
-    if(i % 4 == 0){
+    if((i % 4 == 0) && (i % 100 != 0) || (i % 400 == 0)){
      console.log('Высокостный год:', i);
     }
   }
 } else if (firstYear > lastYear) {
   for(let i = lastYear, b = firstYear; i <= b; i++){
-    if(i % 4 == 0){
+    if((i % 4 == 0) && (i % 100 != 0) || (i % 400 == 0)){
      console.log('Высокостный год:', i);
     }
   }
@@ -100,5 +100,5 @@ function leapYear()
 
 
                                   //ЧЕТВЕРТАЯ ЗАДАЧА (Недоделана)
-game();                                  
+// game();                                  
 
