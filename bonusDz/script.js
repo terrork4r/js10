@@ -70,7 +70,25 @@ function leapYear()
 // 6) После угаданного число бот спрашивает «Хотите сыграть еще?»
 // 7) Если пользователь ввел не число, то выводит «Введи число!» и предлагает ввести новый вариант
 // 8) Если пользователь нажимает «Отмена», то игра заканчивается
-
+    let randomNumber = getRandomInt(0, 100);
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+    console.log(randomNumber);
+    let game = function(){
+      let write = +prompt('Угадай число');
+      while(write !== randomNumber){
+        if(write > randomNumber){
+          alert('Ваше число больше');
+          write = +prompt('Угадай число');
+        }else if(write < randomNumber){
+          alert('Ваше число меньше');
+          write = +prompt('Угадай число');
+        }
+      }
+      alert('Поздравляю вы угадали!!');
+    };
+    
 
 
                                   //ПЕРВАЯ ЗАДАЧА
@@ -78,5 +96,9 @@ function leapYear()
                                   //ВТОРАЯ ЗАДАЧА
 // leapYear();
 
+                                  //ТРЕТЬЯ ЗАДАЧА
 
+
+                                  //ЧЕТВЕРТАЯ ЗАДАЧА (Недоделана)
+game();                                  
 
