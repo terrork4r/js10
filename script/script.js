@@ -3,7 +3,6 @@ let money, //месячный доход
     start = function(){
       do {
       money = prompt ('Ваш месячный доход?', 40000) ;
-      console.log ('месячный доход:', money, 'руб') ;
       } while (isNaN(money) || money === '' || money === null) ;
     };     
 start(); 
@@ -25,34 +24,36 @@ let appData = {
       'бензин, активный отдых, фитнес');
       appData.addExpenses = addExpenses.toLowerCase().split(',');
       appData.deposit = confirm('Есть ли у вас депозит в банке?');
+
+      
+  for(let i = 0; i < 2; i++) {
+    let expenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата'),
+        howMutch;
+    do{
+      howMutch = prompt('Во сколько это обойдется?', 5000);
+    }
+    while (isNaN(howMutch) || howMutch === '' || howMutch === null);
+    appData.expenses[expenses1] = howMutch;
+  }
+  
   },
+
 
   getExpensesMonth: function(){   //Функция возвращает сумму всех расходов за месяц
-    let sum = 0,
-        howMutch;
-    for(let i = 0; i < 2; i++) {
-      if (i === 0){
-        expenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата');
-      }
-      if (i === 1){
-        expenses2 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Оплата интернета');
-      }
-      howMutch = prompt('Во сколько это обойдется?', 5000);
-      while (isNaN(howMutch) || howMutch === '' || howMutch === null) {
-        howMutch = prompt('Во сколько это обойдется?', 5000);
-      }
-      sum += +howMutch;
+    for (let key in appData.expenses) {
+       appData.expensesMonth += +appData.expenses[key];
+      
     }
-    console.log('сумма ежемесячных расходов равна:', sum, 'руб');
-    return sum;
+    
   },
 
-  getAccumulatedMonth: function(){     //Функция возвращает Накопления за месяц (Доходы минус расходы)
-    return money - expensesAmount;
+  getBudget: function(){     
+    appData.budgetMonth = appData.budget - appData.expensesMonth ; //месячный доход с учетом обязательных расходов
+    appData.budgetDay = appData.budgetMonth / 30;   //дневной бюджет с учетом обязательных расходов
   },
 
   getTargetMonth: function(){      //Функция подсчитывает за какой период будет достигнута цель
-    let missionComplete = appData.mission / accumulatedMonth;
+    let missionComplete = appData.mission / appData.budgetMonth;
     if(missionComplete < 0) {
       console.log('Цель не будет достигнута');
     }else{
@@ -77,23 +78,27 @@ getStatusIncome: function(){
      expenses2;
 
 
-              
-let expensesAmount = appData.getExpensesMonth();
-appData.budgetMonth = money - expensesAmount ; //месячный доход с учетом обязательных расходов
-appData.budgetDay = appData.budgetMonth / 30;   //дневной бюджет с учетом обязательных расходов
 
 
             //ВЫЗОВ ФУНКЦИЙ
-let accumulatedMonth = appData.getAccumulatedMonth(); //Накопления за месяц
+appData.asking();
+appData.getExpensesMonth();
+appData.getBudget();
 appData.getTargetMonth();
+appData.getStatusIncome();
+
+// — Расходы за месяц
+// — За какой период будет достигнута цель (в месяцах)
+// — Уровень дохода
 
 
-console.log('Накопления за месяц:', accumulatedMonth, 'руб');
+// 10) Используя цикл for in для объекта (appData), вывести в консоль сообщение
+//  "Наша программа включает в себя данные: " (вывести весь appData)
+
+console.log('Расходы за месяц:', appData.expensesMonth);
+
 console.log(appData.getStatusIncome());
 
-
-
-
-
-
-
+for(let key in appData){
+    console.log('Наша программа включает в себя данные:',key,':' , appData[key]);
+}
