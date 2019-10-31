@@ -8,27 +8,46 @@ let money, //месячный доход
 start(); 
 
 let appData = {
-  budget: money,
-  income: {}, // дополнительные расходы
+  budget: money,        //наш доход
+  income: {},         //дополниетльный доход
   addIncome: [],
-  expenses: {},
-  addExpenses: [],
-  deposit: false,
-  mission: 1000000,
-  period: 12,
-  budgetDay: 0,
-  budgetMonth: 0,
-  expensesMonth: 0,
+  expenses: {},       // наши расходы
+  addExpenses: [],    // дополнительные расходы
+  deposit: false, 
+  percentDeposit: 0, //процент под который положили депозит
+  moneyDeposit: 0,   //колличество денег, которые положили на депозит
+  mission: 1000000,  //наша цель
+  period: 12,       // периуд для достижения цели
+  budgetDay: 0,    //количество денег на день с учетом расходов
+  budgetMonth: 0,  //месячный запас денег с учетом расходов
+  expensesMonth: 0,   //затраты за месяц
   asking: function(){
+
+    if(confirm('Есть ли у вас дополнительный источник заработка?')){
+      let itemIncome,
+          cashIncome;
+      do{
+         itemIncome = prompt('Какой у вас дополнительный заработок', 'фриланс');
+      } while (!isNaN(itemIncome) || itemIncome === '' || itemIncome === null);
+      do{ 
+        cashIncome = prompt('Сколько в месяц вы на этом зарабатываете?', 5000);
+      } while(isNaN(cashIncome) || cashIncome === '' || cashIncome === null);
+      appData.income[itemIncome] = cashIncome;
+    }
+
     let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую',
       'бензин, активный отдых, фитнес');
-      appData.addExpenses = addExpenses.toLowerCase().split(',');
+      appData.addExpenses = addExpenses.split(',');
       appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
       
   for(let i = 0; i < 2; i++) {
-    let expenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата'),
+    let expenses1,
         howMutch;
+    do{
+      expenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата');
+    } while(!isNaN(expenses1) || expenses1 === '' || expenses1 === null);  
+
     do{
       howMutch = prompt('Во сколько это обойдется?', 5000);
     }
@@ -72,12 +91,32 @@ getStatusIncome: function(){
     return ('Что то пошло не так!!!');
   }
 },
+
+getInfoDeposit: function(){
+  if(appData.deposit){
+    do{
+      appData.percentDeposit = prompt('Какой годовой процент?', 10);
+    }while(isNaN(appData.percentDeposit)|| appData.percentDeposit === '' || appData.percentDeposit === null);
+    do{ 
+      appData.moneyDeposit = prompt('Какая сумма вклада?', 100000);
+    }while(isNaN(appData.moneyDeposit)|| appData.moneyDeposit === '' || appData.moneyDeposit === null);
+  }
+},
+
+calcSavedMoney: function(){
+ return appData.budgetMonth * appData.period;
+},
+
+upperCase: function(){
+  for( let i = 0; i < appData.addExpenses.length; i++){
+    appData.addExpenses[i] = appData.addExpenses[i].trim();
+    appData.addExpenses[i] = appData.addExpenses[i][0].toUpperCase() + appData.addExpenses[i].toLowerCase().slice(1);
+    console.log(appData.addExpenses[i]);
+  }
+  console.log(appData.addExpenses);
+},
+
 };
-
- let expenses1, 
-     expenses2;
-
-
 
 
             //ВЫЗОВ ФУНКЦИЙ
@@ -86,19 +125,15 @@ appData.getExpensesMonth();
 appData.getBudget();
 appData.getTargetMonth();
 appData.getStatusIncome();
+appData.getInfoDeposit();
+appData.upperCase();
 
-// — Расходы за месяц
-// — За какой период будет достигнута цель (в месяцах)
-// — Уровень дохода
-
-
-// 10) Используя цикл for in для объекта (appData), вывести в консоль сообщение
-//  "Наша программа включает в себя данные: " (вывести весь appData)
 
 console.log('Расходы за месяц:', appData.expensesMonth);
 
 console.log(appData.getStatusIncome());
+// console.log(appData);
+// for(let key in appData){
+//     console.log('Наша программа включает в себя данные:',key,':' , appData[key]);
+// }
 
-for(let key in appData){
-    console.log('Наша программа включает в себя данные:',key,':' , appData[key]);
-}

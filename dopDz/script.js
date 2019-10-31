@@ -91,3 +91,18 @@ for(let i =0; i<7; i++){
 // getExpensesMonth();
 // getExpensesMonth1();
 // console.log(obj);
+
+
+
+
+
+
+
+
+let arr = ['яблоко', 'апельсин', 'банан'];
+console.log(arr.length);
+
+for(let i = 0; i < arr.length; i++){
+  arr[i] = arr[i][0].toUpperCase() + arr[i].slice(1);
+}
+ console.log(arr);
