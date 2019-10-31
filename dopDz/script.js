@@ -8,13 +8,17 @@ let data = new Date();
 let week = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
 for(let i =0; i<7; i++){
   
-  if(week[i] === 'суббота' || week[i] === 'воскресенье'){
-    console.log('%c' + week[i], "font-style: italic;");
+  if(week[i] === 'суббота' || week[i] === 'воскресенье'){ 
     if(week[i] === week[data.getDay()]){
     console.log('%c' + week[i], "font-weight: bold; font-style: italic;");
+    }else{
+      console.log('%c' + week[i], "font-style: italic;");
     }
   }
   if(week[i] === week[data.getDay()]){
+    if(week[i] === 'суббота' || week[i] === 'воскресенье'){
+      continue;
+    }
     console.log('%c' + week[i], "font-weight: bold;");
   }
   if(week[i] === 'суббота' || week[i] === 'воскресенье'|| week[i] === week[data.getDay()]){
@@ -32,14 +36,14 @@ for(let i =0; i<7; i++){
 
 
 
-let test = function(speed1, speed2, distance){
-    let addSpeed = speed1 + speed2; // общая скорость
-    let time = distance / addSpeed; // время через которое встретятся
-    console.log('общая скорость:', addSpeed);
-    console.log('Время через которое встретятся:', time);
-};
+// let test = function(speed1, speed2, distance){
+//     let addSpeed = speed1 + speed2; // общая скорость
+//     let time = distance / addSpeed; // время через которое встретятся
+//     console.log('общая скорость:', addSpeed);
+//     console.log('Время через которое встретятся:', time);
+// };
 
-test(50, 100, 500);
+// test(50, 100, 500);
 
 
 
