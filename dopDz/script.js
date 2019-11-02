@@ -1,108 +1,47 @@
 'use stict';
-// 1) Создать массив week и записать в него дни недели в виде строк
-// ·        Вывести на экран все дни недели
-// ·        Каждый из них с новой строчки
-// ·        Выходные дни - курсивом
-// ·        Текущий день - жирным шрифтом(использовать объект даты)
+
+
+
+// 1) Выведите на страницу текущую дату и время в формате '09:59:59 30.05.2018'
+
+// 2) Напишите функцию, которая будет добавлять 0 перед значениями которые
+//  состоят из одной цифры (из 9:5:3  1.6.2019 сделает 09:05:03 01.06.2019)
+
+
+
+
+
+let addition = function(){
+  let body = document.querySelector('body');
 let data = new Date();
-let week = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
-for(let i =0; i<7; i++){
+let date = data.getDate()+':'+data.getMonth()+':'+data.getFullYear();
+let time = data.getHours()+':'+data.getMinutes()+':'+data.getSeconds();
+
+ let arr = date.split(':'),
+     arr1 = time.split(':');
+ 
+  for(let i = 0; i < arr.length; i++){
+    if(arr[i].length < 2){
+      arr[i] = 0 + arr[i][0];
+    }
+  }
+  for(let b = 0; b < arr.length; b++){
+    if(arr1[b].length < 2){
+      arr1[b] = 0 + arr1[b][0];
+    }
+  }
+  let newElem = document.createElement('div');
+  newElem.innerHTML = arr[0]+':'+arr[1]+':'+arr[2]+ '  ' + arr1[0]+':'+arr1[1]+':'+arr1[2];
+  body.append(newElem);
+};
+addition();
+
+  // window.onload = function(){
+  //       (function(){
+  //           var date = new Date(), div = document.getElementsByTagName('div');
+  //           div[0].innerHTML = date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()+':'+date.getMilliseconds(); 
+  //           div[1].innerHTML = new Date().setTime(new Date(date).getTime());  
+  //           window.setTimeout(arguments.callee, 1); 
+  //       })();
+  //   };
   
-  if(week[i] === 'суббота' || week[i] === 'воскресенье'){ 
-    if(week[i] === week[data.getDay()]){
-    console.log('%c' + week[i], "font-weight: bold; font-style: italic;");
-    }else{
-      console.log('%c' + week[i], "font-style: italic;");
-    }
-  }
-  if(week[i] === week[data.getDay()]){
-    if(week[i] === 'суббота' || week[i] === 'воскресенье'){
-      continue;
-    }
-    console.log('%c' + week[i], "font-weight: bold;");
-  }
-  if(week[i] === 'суббота' || week[i] === 'воскресенье'|| week[i] === week[data.getDay()]){
-   continue;
-  }
-  console.log(week[i]);
-}
-
-
-
-
-
-
-
-
-
-
-// let test = function(speed1, speed2, distance){
-//     let addSpeed = speed1 + speed2; // общая скорость
-//     let time = distance / addSpeed; // время через которое встретятся
-//     console.log('общая скорость:', addSpeed);
-//     console.log('Время через которое встретятся:', time);
-// };
-
-// test(50, 100, 500);
-
-
-
-
-
-
-// let obj ={
-//   add: 0,
-//   obj2: {},
-// };
-// let expenses1, 
-// expenses2;
-
-// const getExpensesMonth = function(){   //Функция возвращает сумму всех расходов за месяц
-// let howMutch,
-//     howMutch1;
-// for(let i = 0; i < 2; i++) {
-// if (i === 0){
-//   expenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата');
-//   howMutch = prompt('Во сколько это обойдется?', 5000);
-//     while (isNaN(howMutch) || howMutch === '' || howMutch === null) {
-//       howMutch = prompt('Во сколько это обойдется?', 5000);
-//     }
-// }
-// if (i === 1){
-//  expenses2 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Оплата интернета');
-//  howMutch1 = prompt('Во сколько это обойдется?', 5000);
-//   while (isNaN(howMutch) || howMutch === '' || howMutch === null) {
-//     howMutch1 = prompt('Во сколько это обойдется?', 5000);
-//   }
-// }
-
-// while (isNaN(howMutch) || howMutch === '' || howMutch === null) {
-//  howMutch = prompt('Во сколько это обойдется?', 5000);
-// }
-// }
-// obj.obj2[expenses1] = howMutch;
-// obj.obj2[expenses2] = howMutch1;
-// };
-// const getExpensesMonth1 = function(){
-//   for (let key in obj.obj2) {
-//     obj.add += +obj.obj2[key];
-// }
-// };
-// getExpensesMonth();
-// getExpensesMonth1();
-// console.log(obj);
-
-
-
-
-
-
-
-
-let arr = ['яблоко', 'апельсин', 'банан'];
-console.log(arr.length);
-
-for(let i = 0; i < arr.length; i++){
-  arr[i] = arr[i][0].toUpperCase() + arr[i].slice(1);
-}
- console.log(arr);
