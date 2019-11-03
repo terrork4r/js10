@@ -14,10 +14,10 @@
 let addition = function(){
   let body = document.querySelector('body');
 let data = new Date();
-let date = data.getDate()+':'+data.getMonth()+':'+data.getFullYear();
+let date = data.getDate()+'.'+data.getMonth()+'.'+data.getFullYear();
 let time = data.getHours()+':'+data.getMinutes()+':'+data.getSeconds();
 
- let arr = date.split(':'),
+ let arr = date.split('.'),
      arr1 = time.split(':');
  
   for(let i = 0; i < arr.length; i++){
@@ -31,17 +31,18 @@ let time = data.getHours()+':'+data.getMinutes()+':'+data.getSeconds();
     }
   }
   let newElem = document.createElement('div');
-  newElem.innerHTML = arr[0]+':'+arr[1]+':'+arr[2]+ '  ' + arr1[0]+':'+arr1[1]+':'+arr1[2];
+  newElem.innerHTML ='Дата:'+ arr[0]+'.'+arr[1]+'.'+arr[2]+ ' Время: ' + arr1[0]+':'+arr1[1]+':'+arr1[2];
   body.append(newElem);
+  
 };
 addition();
 
-  // window.onload = function(){
-  //       (function(){
-  //           var date = new Date(), div = document.getElementsByTagName('div');
-  //           div[0].innerHTML = date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()+':'+date.getMilliseconds(); 
-  //           div[1].innerHTML = new Date().setTime(new Date(date).getTime());  
-  //           window.setTimeout(arguments.callee, 1); 
-  //       })();
-  //   };
+// window.onload = function(){
+//       (function(){
+//           var date = new Date();
+//           var time = date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+//           document.getElementsByTagName('div')[0].innerHTML = time;
+//           window.setTimeout(arguments.callee, 1000);
+//       })();
+//   };
   
