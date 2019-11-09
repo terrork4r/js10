@@ -1,7 +1,5 @@
 'use strict';
 
-const { querySelector } = document;
-
         //Левая сторона программы
         let data = document.querySelector('.data');
 let salaryAmount = data.querySelector('.salary-amount'),  //Месячный доход
@@ -31,7 +29,8 @@ additionalExpensesValue = result.querySelector('.additional_expenses-value'), //
 incomePeriodValue = result.querySelector('.income_period-value'), // Накопления за период
 targetMonthValue = result.querySelector('.target_month-value'); // Срок достижения цели в месяцах
 
- 
+start.disabled = false;
+
 let appData = {
   budget: 0,        //наш доход
   income: {},         //дополниетльный доход
@@ -48,7 +47,6 @@ let appData = {
 
   start: function(){
     if (salaryAmount.value === '') {
-      start.disabled = true;
       return;
     }
     appData.budget = +salaryAmount.value;
@@ -171,29 +169,29 @@ let appData = {
     return targetAmount.value / appData.budgetMonth;  
   },
 
-getStatusIncome: function(){
-  if(appData.budgetDay >= 800) {
-    return ('Высокий уровень дохода');
-  }else if(appData.budgetDay >= 300 && appData.budgetDay < 800){
-    return ('Средний уровень дохода');
-  }else if(appData.budgetDay < 300 && appData.budgetDay > 0){
-    return ('Низкий уровень дохода');
-  }else{
-    return ('Что то пошло не так!!!');
-  }
-},
+// getStatusIncome: function(){
+//   if(appData.budgetDay >= 800) {
+//     return ('Высокий уровень дохода');
+//   }else if(appData.budgetDay >= 300 && appData.budgetDay < 800){
+//     return ('Средний уровень дохода');
+//   }else if(appData.budgetDay < 300 && appData.budgetDay > 0){
+//     return ('Низкий уровень дохода');
+//   }else{
+//     return ('Что то пошло не так!!!');
+//   }
+// },
 
-getInfoDeposit: function(){
-  appData.deposit = confirm('Есть ли у вас депозит в банке?');
-  if(appData.deposit){
-    do{
-      appData.percentDeposit = prompt('Какой годовой процент?', 10);
-    }while(isNaN(appData.percentDeposit)|| appData.percentDeposit === '' || appData.percentDeposit === null);
-    do{ 
-      appData.moneyDeposit = prompt('Какая сумма вклада?', 100000);
-    }while(isNaN(appData.moneyDeposit)|| appData.moneyDeposit === '' || appData.moneyDeposit === null);
-  }
-},
+// getInfoDeposit: function(){
+//   appData.deposit = confirm('Есть ли у вас депозит в банке?');
+//   if(appData.deposit){
+//     do{
+//       appData.percentDeposit = prompt('Какой годовой процент?', 10);
+//     }while(isNaN(appData.percentDeposit)|| appData.percentDeposit === '' || appData.percentDeposit === null);
+//     do{ 
+//       appData.moneyDeposit = prompt('Какая сумма вклада?', 100000);
+//     }while(isNaN(appData.moneyDeposit)|| appData.moneyDeposit === '' || appData.moneyDeposit === null);
+//   }
+// },
 
 calcSavedMoney: () => appData.budgetMonth * periodSelect.value,
 
@@ -206,8 +204,8 @@ upperCase: function(){
     console.log(appData.addExpenses[i]);
   }
   console.log(appData.addExpenses);
-},
-
+  },
+  
 
 };
             //Обработчики событий
@@ -219,12 +217,7 @@ periodSelect.addEventListener('input', function(){
   document.querySelector('.period-amount').textContent = periodSelect.value;
 });
 
-            //ВЫЗОВ ФУНКЦИЙ
 
-appData.getTargetMonth();
-appData.getStatusIncome();
-appData.getInfoDeposit();
-appData.upperCase();
 
 
 
