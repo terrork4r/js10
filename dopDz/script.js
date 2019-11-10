@@ -1,9 +1,18 @@
 'use stict';
-let box = document.querySelector('.box');
-let input = document.querySelectorAll('input');
-console.log(input);
-let link = document.querySelector('a');
-document.addEventListener('contextmenu', function(event){
-  event.preventDefault();
-  console.log('неожиданно');
-});
+console.log(this);
+
+
+let obj = {
+  a: 10,
+  b: 15,
+  c: function(){
+    console.log(this);
+  },
+  
+};
+
+let fun = function(){
+  console.log(this);
+};
+let x = fun.bind(obj);
+x();
