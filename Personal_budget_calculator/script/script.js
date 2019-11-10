@@ -190,7 +190,7 @@ periodSelect.addEventListener('input', function(){
   document.querySelector('.period-amount').textContent = periodSelect.value;
 });
 
-
+console.log(this);
 
 
 
