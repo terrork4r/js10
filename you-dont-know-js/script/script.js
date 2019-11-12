@@ -1,9 +1,9 @@
 'use strict';
-let body = document.querySelector('body');
-let delet = document.querySelector('.adv');
-let ul = document.querySelectorAll('ul');
-let books = document.querySelector('.books');
-let book = document.querySelectorAll('.book');
+let body = qs('body');
+let delet = qs('.adv');
+let ul = qsAll('ul');
+let books = qs('.books');
+let book = qsAll('.book');
 let titleBook3 = book[4].querySelector('a');
 let elemBook2 = ul[0].querySelectorAll('li');
 let elemBook5 = ul[5].querySelectorAll('li');
