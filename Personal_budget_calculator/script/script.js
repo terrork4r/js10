@@ -55,16 +55,16 @@ let appData = {
     }
     this.budget = +salaryAmount.value;
     
-    this.getExpenses.call(this);
-    this.getIncome.call(this);
-    this.getExpensesMonth.call(this);
-    this.getIncomeMonth.call(this);
-    this.getAddExpenses.call(this);
-    this.getAddIncome.call(this);
+    this.getExpenses();
+    this.getIncome();
+    this.getExpensesMonth();
+    this.getIncomeMonth();
+    this.getAddExpenses();
+    this.getAddIncome();
     
-    this.getBudget.call(this);
-    this.showResult.call(this);
-    this.blocked.call(this);
+    this.getBudget();
+    this.showResult();
+    this.blocked();
   },
 
   showResult()  {   // выводит результат на экран в инпуты после нажатия кнопки расчитать
