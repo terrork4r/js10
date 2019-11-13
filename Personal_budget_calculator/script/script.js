@@ -194,9 +194,11 @@ start.addEventListener('click', appData.start.bind(appData));
 cancel.addEventListener('click', () => { 
   start.style.display = 'block';
   cancel.style.display = 'none';
-  allInput.forEach((item) => {
-  item.disabled = false;
-  item.value = '';
+  allInput.forEach(input => {
+  input.disabled = false;
+  input.value = '';
+  periodSelect.value = 1;
+  qs('.period-amount').textContent = periodSelect.value;
   });
 });
 
