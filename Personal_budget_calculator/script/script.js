@@ -48,7 +48,8 @@ function AppData() {
   this.budgetMonth = 0;  //месячный запас денег с учетом расходов
   this.expensesMonth = 0;   //затраты за месяц
 }
-const appData = new AppData();
+
+
 
 AppData.prototype.start = function() {
   if (salaryAmount.value === '') {
@@ -187,13 +188,11 @@ for( let i = 0; i < this.addExpenses.length; i++){
   this.addExpenses[i] = this.addExpenses[i][0].toUpperCase() + this.addExpenses[i].toLowerCase().slice(1);
   console.log(this.addExpenses[i]);
 }
-console.log(this.addExpenses);
+
 };
 
-
-
-            //Обработчики событий
-start.addEventListener('click', appData.start.bind(appData));
+AppData.prototype.EventListener = function() {
+  start.addEventListener('click', appData.start.bind(appData));
 cancel.addEventListener('click', () => { 
   start.style.display = 'block';
   cancel.style.display = 'none';
@@ -211,6 +210,13 @@ plusIncome.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input', function(){
   qs('.period-amount').textContent = periodSelect.value;
 });
+ };
+
+
+ const appData = new AppData();
+ appData.EventListener();
+            //Обработчики событий
+
 
 
 
