@@ -196,6 +196,7 @@ AppData.prototype.EventListener = function() {
 cancel.addEventListener('click', () => { 
   start.style.display = 'block';
   cancel.style.display = 'none';
+  let allInput = qsAll('input');
   allInput.forEach(input => {
   input.disabled = false;
   input.value = '';
