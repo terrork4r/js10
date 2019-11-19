@@ -2,7 +2,6 @@
 const qs = document.querySelector.bind(document);
 const qsAll = document.querySelectorAll.bind(document);
 
-let allInput = qsAll('input');
         //Левая сторона программы
         let data = qs('.data');
 let salaryAmount = qs('.salary-amount'),  //Месячный доход
@@ -166,8 +165,7 @@ AppData.prototype.getIncomeMonth = function() {
   }
 };
 
-AppData.prototype.getBudget = function() {
-  console.log(this.budget, this.incomeMonth, this.expensesMonth);     
+AppData.prototype.getBudget = function() {  
   this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth ; //месячный доход с учетом обязательных расходов
   this.budgetDay = Math.ceil(this.budgetMonth / 30);   //дневной бюджет с учетом обязательных расходов
 };
@@ -203,6 +201,13 @@ cancel.addEventListener('click', () => {
   periodSelect.value = 1;
   qs('.period-amount').textContent = periodSelect.value;
   });
+  
+  plusExpenses.style.display = 'block';
+  qsAll('.income-items').forEach((item, index) => index >= 1 && item.remove());
+  plusIncome.style.display = 'block';
+  qsAll('.expenses-items').forEach((item, index) => index >= 1 && item.remove());
+  console.log(expensesItems);
+  appData = new AppData();
 });
 
 plusExpenses.addEventListener('click', appData.addExpensesBlock);
@@ -214,7 +219,7 @@ periodSelect.addEventListener('input', function(){
  };
 
 
- const appData = new AppData();
+ let appData = new AppData();
  appData.EventListener();
             //Обработчики событий
 
