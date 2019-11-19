@@ -68,7 +68,7 @@ AppData.prototype.start = function() {
 };
 
 AppData.prototype.showResult = function()  {
-  console.log(budgetMonthValue.value);   // выводит результат на экран в инпуты после нажатия кнопки расчитать
+  console.log(this);   
   budgetMonthValue.value = this.budgetMonth;
   budgetDayValue.value = this.budgetDay;
   expensesMonthValue.value = this.expensesMonth;
@@ -190,25 +190,26 @@ for( let i = 0; i < this.addExpenses.length; i++){
 };
 
 AppData.prototype.EventListener = function() {
-  start.addEventListener('click', appData.start.bind(appData));
-cancel.addEventListener('click', () => { 
-  start.style.display = 'block';
-  cancel.style.display = 'none';
-  let allInput = qsAll('input');
-  allInput.forEach(input => {
-  input.disabled = false;
-  input.value = '';
-  periodSelect.value = 1;
-  qs('.period-amount').textContent = periodSelect.value;
+  start.addEventListener('click', () => appData.start());
+  cancel.addEventListener('click', () => { 
+    start.style.display = 'block';
+    cancel.style.display = 'none';
+    let allInput = qsAll('input');
+    allInput.forEach(input => {
+    input.disabled = false;
+    input.value = '';
+    periodSelect.value = 1;
+    qs('.period-amount').textContent = periodSelect.value;
+    });
+    
+    plusExpenses.style.display = 'block';
+    qsAll('.income-items').forEach((item, index) => index >= 1 && item.remove());
+    plusIncome.style.display = 'block';
+    qsAll('.expenses-items').forEach((item, index) => index >= 1 && item.remove());
+    console.log(expensesItems);
+    appData = new AppData();
+    console.log(appData);
   });
-  
-  plusExpenses.style.display = 'block';
-  qsAll('.income-items').forEach((item, index) => index >= 1 && item.remove());
-  plusIncome.style.display = 'block';
-  qsAll('.expenses-items').forEach((item, index) => index >= 1 && item.remove());
-  console.log(expensesItems);
-  appData = new AppData();
-});
 
 plusExpenses.addEventListener('click', appData.addExpensesBlock);
 plusIncome.addEventListener('click', appData.addIncomeBlock);
