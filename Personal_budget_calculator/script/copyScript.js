@@ -3,9 +3,9 @@ const qs = document.querySelector.bind(document);
 const qsAll = document.querySelectorAll.bind(document);
 
         //Левая сторона программы
-        const data = qs('.data');
-const salaryAmount = qs('.salary-amount'),  //Месячный доход
-    
+        let data = qs('.data');
+let salaryAmount = qs('.salary-amount'),  //Месячный доход
+    incomeItems = qsAll('.income-items'),
     incomeTitle = qs('input.income-title'),   //Наименование дополнительного дохода
     incomeAmount = qs('.income-amount'),  //сумма дополнительного дохода
     additionalIncomeItem = qsAll('.additional_income-item'), //поля для ввода возможных доходов
@@ -18,16 +18,15 @@ const salaryAmount = qs('.salary-amount'),  //Месячный доход
     plusIncome = data.getElementsByTagName('button')[0], // первая кнопка +
     plusExpenses = data.getElementsByTagName('button')[1], // вторая кнопка +
     depositCheck = qs('#deposit-check'),  // чекбокс депозит
-    
+    expensesItems = qsAll('.expenses-items'),  // блок с инпутами обязательных расходов
     targetAmount = qs('.target-amount'),
     periodAmount = qs('.period-amount'),
     depositBank = qs('.deposit-bank'),
     depositAmount = qs('.deposit-amount'),
     depositPercent = qs('.deposit-percent');
-    let expensesItems = qsAll('.expenses-items'),  // блок с инпутами обязательных расходов
-    incomeItems = qsAll('.income-items');
+    
         //Правая сторона программы, результаты
-        const result = qs('.result'),
+        let result = qs('.result'),
         budgetMonthValue = qs('.budget_month-value'), // доход за месяц
         budgetDayValue = qs('.budget_day-value'), // Дневной бюджет
         expensesMonthValue = qs('.expenses_month-value'), // Расход за месяц
@@ -38,7 +37,7 @@ const salaryAmount = qs('.salary-amount'),  //Месячный доход
 
 start.disabled = false;
 
-const AppData = function() {
+function AppData() {
   this.budget = 0;        //наш доход
   this.income = {};         //дополниетльный доход
   this.incomeMonth = 0;    //дополнительный месячный доход 
@@ -51,7 +50,7 @@ const AppData = function() {
   this.budgetDay = 0;    //количество денег на день с учетом расходов
   this.budgetMonth = 0;  //месячный запас денег с учетом расходов
   this.expensesMonth = 0;   //затраты за месяц
-};
+}
 
 
 
@@ -65,7 +64,8 @@ AppData.prototype.start = function() {
   this.getIncome();
   this.getExpensesMonth();
   this.getIncomeMonth();
-  this.getExpInc();
+  this.getAddExpenses();
+  this.getAddIncome();
   this.getInfoDeposit();
   this.getBudget();
   this.showResult();
@@ -97,16 +97,23 @@ AppData.prototype.blocked = function() {
    cancel.style.display = 'block';
  };
 
- AppData.prototype.addExpIncBlock = function(item, plus) {
-  let clone = item[0].cloneNode(true);
-  item[0].parentNode.insertBefore(clone, plus);
-  if (item[0] === expensesItems){
-    item = qsAll('.expenses-items');
-  } else if (item[0] === incomeItems) {
-    item = qsAll('.income-items');
+AppData.prototype.addExpensesBlock = function() {  // после нажатия + добавляет блок с инпутами обязательные расходы
+  
+  let cloneExpensesItems = expensesItems[0].cloneNode(true);
+  expensesItems[0].parentNode.insertBefore(cloneExpensesItems, plusExpenses);
+  expensesItems = qsAll('.expenses-items');
+
+  if(expensesItems.length === 3) {
+    plusExpenses.style.display = 'none';
   }
-  if(clone.length === 3) {
-    plus.style.display = 'none';
+};
+
+AppData.prototype.addIncomeBlock = function() {
+  let cloneIncomeItems = incomeItems[0].cloneNode(true);
+  incomeItems[0].parentNode.insertBefore(cloneIncomeItems, plusIncome);
+  incomeItems = qsAll('.income-items');
+  if(incomeItems.length === 3) {
+    plusIncome.style.display = 'none';
   }
 };
 
@@ -130,10 +137,19 @@ AppData.prototype.getIncome = function() {
   });
 };
 
-AppData.prototype.getExpInc = function() {
-  const addExpenses = additionalExpensesItem.value.split(',');
-  addExpenses.forEach(item => item !== '' && this.addExpenses.push(item.trim()));
-  additionalIncomeItem.forEach(item => item.value !== '' && this.addIncome.push(item.value.trim()));
+AppData.prototype.getAddExpenses = function() {
+  let addExpenses = additionalExpensesItem.value.split(',');
+  addExpenses.forEach(item => {
+    item = item.trim();
+    return item !== '' && this.addExpenses.push(item);
+  });
+};
+
+AppData.prototype.getAddIncome = function()  {
+  additionalIncomeItem.forEach(item => {
+    let itemValue = item.value.trim();
+    return item.value !== '' && this.addIncome.push(itemValue);
+  });
 };
 
 AppData.prototype.getExpensesMonth = function() {   //Функция возвращает сумму всех расходов за месяц
@@ -196,8 +212,8 @@ AppData.prototype.EventListener = function() {
     appData = new AppData();
     });
 
-    plusExpenses.addEventListener('click', appData.addExpIncBlock(expensesItems, plusExpenses));
-    plusIncome.addEventListener('click', appData.addExpIncBlock(incomeItems, plusIncome));
+    plusExpenses.addEventListener('click', appData.addExpensesBlock);
+    plusIncome.addEventListener('click', appData.addIncomeBlock);
 
     periodSelect.addEventListener('input', function(){
       qs('.period-amount').textContent = periodSelect.value;
@@ -231,4 +247,5 @@ AppData.prototype.EventListener = function() {
 
  let appData = new AppData();
  appData.EventListener();
-            
+            //Обработчики событий
+

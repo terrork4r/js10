@@ -78,3 +78,25 @@ AppData.prototype.addExpIncBlock = function(item, plus) {
     plus.style.display = 'none';
   }
 };
+
+
+AppData.prototype.getExpInc = function() {
+  const count = item => {
+    const startStr = item.className.split('-')[0];
+    const itemTitle = qs(`.${startStr}-title`).value;
+    const itemAmount = qs(`.${startStr}-amount`).value;
+    if (itemTitle !== '' && itemAmount !== '' ) {
+      this[startStr][itemTitle] = itemAmount;
+    }
+  };
+  incomeItems.forEach(count);
+  expensesItems.forEach(count);
+
+  for (const key in this.income) {
+    this.incomeMonth += +this.income[key];
+  }
+};
+
+
+
+
