@@ -73,16 +73,14 @@ AppData.prototype.start = function() {
 };
 
 AppData.prototype.showResult = function()  {   
-  budgetMonthValue.value = this.budgetMonth;
+  budgetMonthValue.value = Math.floor(this.budgetMonth);
   budgetDayValue.value = this.budgetDay;
   expensesMonthValue.value = this.expensesMonth;
   additionalExpensesValue.value = this.addExpenses.join(', ');
   additionalIncomeValue.value = this.addIncome.join(', ');
   targetMonthValue.value = Math.ceil(this.getTargetMonth());
   incomePeriodValue.value = this.calcSavedMoney();
-  periodSelect.addEventListener('input', () => {
-    incomePeriodValue.value = this.calcSavedMoney();
-  });
+  periodSelect.addEventListener('input', () => incomePeriodValue.value = this.calcSavedMoney());
 
 };
 
@@ -97,12 +95,13 @@ AppData.prototype.blocked = function() {
    cancel.style.display = 'block';
  };
 
- AppData.prototype.addExpIncBlock = function(item, plus) {
+ AppData.prototype.addExpIncBlock = function(item, plus, cb) {
   let clone = item[0].cloneNode(true);
   item[0].parentNode.insertBefore(clone, plus);
   if(item.length === 2) {
     plus.style.display = 'none';
   }
+  return cb();
 };
 
 AppData.prototype.getExpenses = function() {
@@ -156,6 +155,7 @@ AppData.prototype.getTargetMonth = function() { //Функция подсчит�
 
 AppData.prototype.calcSavedMoney = function() {
 return this.budgetMonth * periodSelect.value;
+
 };
     
 AppData.prototype.upperCase =  () => {  //делает в массиве первые буквы Заглавными
@@ -176,23 +176,23 @@ AppData.prototype.EventListener = function() {
   cancel.addEventListener('click', () => { 
     start.style.display = 'block';
     cancel.style.display = 'none';
+    appData.prototype = new AppData();
+    this.budgetMonth = 0;
     let allInput = qsAll('input');
     allInput.forEach(input => {
+    periodSelect.value = 1;
     input.disabled = false;
     input.value = '';
-    periodSelect.value = 1;
     qs('.period-amount').textContent = periodSelect.value;
     });
-    
     plusExpenses.style.display = 'block';
     qsAll('.income-items').forEach((item, index) => index >= 1 && item.remove());
     plusIncome.style.display = 'block';
     qsAll('.expenses-items').forEach((item, index) => index >= 1 && item.remove());
-    appData = new AppData();
     });
 
-    plusExpenses.addEventListener('click', () => appData.addExpIncBlock(qsAll('.expenses-items'), plusExpenses));
-    plusIncome.addEventListener('click', () => appData.addExpIncBlock(qsAll('.income-items'), plusIncome));
+    plusExpenses.addEventListener('click', () => appData.addExpIncBlock(qsAll('.expenses-items'), plusExpenses, () => expensesItems = qsAll('.expenses-items')));
+    plusIncome.addEventListener('click', () => appData.addExpIncBlock(qsAll('.income-items'), plusIncome, () => incomeItems = qsAll('.income-items')));
 
     periodSelect.addEventListener('input', function(){
       qs('.period-amount').textContent = periodSelect.value;
