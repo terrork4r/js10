@@ -174,7 +174,7 @@ class AppData  {
     cancel.addEventListener('click', () => { 
       start.style.display = 'block';
       cancel.style.display = 'none';
-      appData.prototype = new AppData();
+      appData = new AppData();
       this.budgetMonth = 0;
       let allInput = qsAll('input');
       allInput.forEach(input => {
