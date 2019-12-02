@@ -1,14 +1,16 @@
-/* .box{
-  background-color: red;
-  width: 200px;
-  height: 200px;
+body{
   display: flex;
-  justify-content: center;
 }
-.circul{
+.box1{
+  position: relative;
+  background-color: red;
+  width: 100px;
+  height: 100px;
+}
+.box2{
+  position: relative;
   background-color: aqua;
   border-radius: 50%;
   width: 100px;
-  height: 100px;
-  margin: auto;
-} */
+  height: 100px; 
+}
