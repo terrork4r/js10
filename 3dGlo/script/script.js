@@ -39,10 +39,10 @@ window.addEventListener('DOMContentLoaded', function() {
           timerHours.textContent = '00';
           timerMinutes.textContent = '00';
           timerSecond.textContent = '00';
-          clearInterval(1);
+          clearInterval(interval);
         }  
     } 
-    setInterval(updateCLock, 1000);
+  let interval = setInterval(updateCLock, 1000);
     updateCLock();
   }
   
