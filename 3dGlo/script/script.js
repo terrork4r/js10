@@ -31,25 +31,23 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     function updateCLock() {
       let timer = getTimeReamaining();
-      
-        timerHours.textContent = timer.hours;
-        timerMinutes.textContent = timer.minutes;
-        timerSecond.textContent = timer.seconds;
-        
         if(timer.timeRemaining > 0) {
-          setInterval(updateCLock, 1000);
+          timerHours.textContent = timer.hours;
+        timerMinutes.textContent = timer.minutes;
+        timerSecond.textContent = timer.seconds; 
         }else {
           timerHours.textContent = '00';
           timerMinutes.textContent = '00';
           timerSecond.textContent = '00';
           clearInterval(updateCLock);
-        }    
+        }  
     } 
-
+     
+    setInterval(updateCLock, 1000);
     updateCLock();
   }
   
-  countTimer('3 dec 2019');
+  countTimer('4 dec 2019');
 
 
 
