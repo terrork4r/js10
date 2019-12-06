@@ -46,8 +46,72 @@ window.addEventListener('DOMContentLoaded', function() {
     updateCLock();
   }
   
-  countTimer('4 dec 2019');
+  countTimer('7 dec 2019');
 
 
+  //МЕНЮ
+
+  const toggleMenu = () => {
+    const btnmenu = qs('.menu'),
+          menu = qs('menu'),
+          closeBtn = qs('.close-btn'),
+          menuItems = menu.querySelectorAll('ul>li');
+
+          const handlerMenu = () => {
+            menu.classList.toggle('active-menu');
+          };
+    
+    btnmenu.addEventListener('click', handlerMenu);   
+
+    closeBtn.addEventListener('click', handlerMenu); 
+
+    menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+   
+
+  };
+  toggleMenu();
+
+  //POPUP
+  
+  const togglePoUp = () => {
+    const popup = qs('.popup'),
+    popupBtn = qsAll('.popup-btn'),
+    popupClose = qs('.popup-close'),
+    popupContent = qs('.popup-content'),
+    scrollWidth = document.documentElement.scrollWidth;
+
+   
+    popupBtn.forEach((elem) => elem.addEventListener('click', () => {
+      popup.style.display = 'block';
+      if(scrollWidth > 768){
+        animations = requestAnimationFrame(animation);
+      }
+    }));
+
+
+    popupClose.addEventListener('click', () => {
+      count = 0;
+      popup.style.display = 'none';
+      
+      
+  });
+    //анимация
+    let count = 0,
+        animations;
+    function animation() {
+      console.log('1');
+      animations = requestAnimationFrame(animation);
+      count++;
+      if(count < 58) {
+        popupContent.style.left = count / 1.5 + '%';
+      } else {
+        cancelAnimationFrame(animations);
+      }
+    }
+    
+  };
+      
+  
+  togglePoUp();
 
 });
