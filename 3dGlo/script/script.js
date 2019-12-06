@@ -99,7 +99,6 @@ window.addEventListener('DOMContentLoaded', function() {
     let count = 0,
         animations;
     function animation() {
-      console.log('1');
       animations = requestAnimationFrame(animation);
       count++;
       if(count < 58) {
